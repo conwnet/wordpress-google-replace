@@ -1,20 +1,22 @@
-import os, re
+import os
 
-def dfs(f):
+def dfs(f, s, t):
+    if f == './auto.py':
+        return
     if os.path.isfile(f):
         try:
-            s1 = 'fonts.googleapis.com'
-            s = open(f).read()
-            if s1 in s:
-                print(f)
-                s = s.replace(s1, 'fonts.useso.com')
+            ss = open(f).read()
+            if s in ss:
+                print('find out \'' + s + '\' in ' + f + ', replace it as \'' + t + '\'')
+                ss = ss.replace(s, t)
                 with open(f, 'w') as ff:
-                    ff.write(s)
+                    ff.write(ss)
         except:
             pass
     else:
         for g in os.listdir(f):
-            dfs(f + '/' + g)
+            dfs(f + '/' + g, s, t)
 
-dfs('.')
+dfs('.', 'fonts.googleapis.com', 'fonts.useso.com')
+dfs('.', '\'http://%d.gravatar.com/avatar/%s\', $gravatar_server', '\'http://cn.gravatar.com/avatar/%s\'')
 
